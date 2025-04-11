@@ -1,16 +1,33 @@
-# fitness_tracker
+# Fitness Tracker
 
-A new Flutter project.
+A Flutter-based fitness tracking application to help users monitor their workouts, nutrition, hydration, and sleep.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Follow these steps to set up and run the project after cloning it.
 
-A few resources to get you started if this is your first Flutter project:
+### Prerequisites
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Ensure you have the following installed on your system:
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) (version 3.6.0 or later)
+- [Dart SDK](https://dart.dev/get-dart)
+- An IDE such as [Visual Studio Code](https://code.visualstudio.com/) or [Android Studio](https://developer.android.com/studio)
+- A connected device or emulator for testing
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Installation
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/Kasweka1/fitness_tracker.git
+   cd fitness_tracker
+   ```
+
+2. **Install Dependencies**: Run the following command to fetch all the required dependencies:
+
+   ```bash
+  flutter pub get
+   ```
+3. **Run Prpject**
+  ```bash
+  flutter run
+   ```
