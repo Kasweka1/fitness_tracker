@@ -24,9 +24,9 @@ Ensure you have the following installed on your system:
 
 2. **Install Dependencies**: Run the following command to fetch all the required dependencies:
 
-   ```bash
+```bash
   flutter pub get
-   ```
+```
 3. **Run Prpject**
   ```bash
   flutter run
