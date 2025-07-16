@@ -1,4 +1,6 @@
-import 'package:fitness_tracker/config/theme.dart';
+
+import 'package:fitness_tracker/core/theme/theme.dart';
+import 'package:fitness_tracker/core/theme/util.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_tracker/screens/home.dart';
 
@@ -11,17 +13,15 @@ class MyFitnessTracker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = createTextTheme(context, "Roboto", "Roboto");
+
+    MaterialTheme theme = MaterialTheme(textTheme);
+
     return MaterialApp(
       title: 'Fitness Tracker',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: AppColors.secondaryBlue,
-        fontFamily: 'Roboto',
-        textTheme: const TextTheme(
-      titleLarge: AppTextStyles.topHeading,
-        )
-      ),
+      theme: theme.light(),
+      themeMode: ThemeMode.system,
       home: HomePage(),
     );
   }

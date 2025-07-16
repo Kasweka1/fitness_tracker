@@ -1,133 +1,111 @@
-import 'package:fitness_tracker/screens/drawer.dart';
+import 'package:fitness_tracker/screens/home_tabs/diet_tab.dart';
+import 'package:fitness_tracker/screens/home_tabs/home_tab.dart';
+import 'package:fitness_tracker/screens/home_tabs/report_tab.dart';
+import 'package:fitness_tracker/screens/home_tabs/settings_tab.dart';
+import 'package:fitness_tracker/screens/widgets/drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_tracker/config/theme.dart';
-import 'package:fitness_tracker/screens/track/start_track.dart';
-import 'package:fitness_tracker/utils/icons/customeMenuIcon.dart';
-import 'package:fitness_tracker/widgets/home/fitnessCard.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
+
+  final List<Widget> _tabs = const [
+    HomeTab(),
+    ReportTab(),
+    DietTab(),
+    SettingsTab(),
+  ];
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return Scaffold(
+      backgroundColor: colors.surface,
       drawer: const MyAppDrawer(),
       appBar: AppBar(
-        backgroundColor: AppColors.secondaryBlue,
-        elevation: 0,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const CustomMenuIcon(color: Colors.white),
-            onPressed: () {
-              Scaffold.of(context).openDrawer(); // Or use GlobalKey
-            },
-          ),
-        ),
-        title: const Text(
-          'Fitness Tracker',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Roboto',
-            fontSize: 20,
-            color: AppColors.primaryWhite,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.search,
-              color: AppColors.primaryWhite,
-            ),
-            onPressed: () {
-              // Handle search logic here
-            },
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        backgroundColor: colors.surface,
+        elevation: 2,
+        toolbarHeight: 70,
+        automaticallyImplyLeading: false, // disables default back/menu icon
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Your Activities',
+            // Left: Greeting
+            Text(
+              'Good Day, Sam',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Roboto',
-                fontSize: 17,
-                color: AppColors.primaryWhite,
+                fontSize: 20,
+                color: colors.primary,
               ),
             ),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 160,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  FitnessCard(
-                    title: 'Workout',
-                    subtitle: '30 min daily plan',
-                    icon: Icons.fitness_center,
+
+            // Right: Icons
+            Row(
+              children: [
+                Icon(Icons.notifications_none, color: colors.primary),
+                const SizedBox(width: 12),
+                Builder(
+                  builder: (context) => GestureDetector(
                     onTap: () {
-                      // Navigate or show workout tips
+                      Scaffold.of(context).openDrawer();
                     },
+                    child: CircleAvatar(
+                      backgroundColor: colors.primaryContainer,
+                      child: Icon(Icons.person, color: colors.primary),
+                    ),
                   ),
-                  FitnessCard(
-                    title: 'Nutrition',
-                    subtitle: 'Track your meals',
-                    icon: Icons.local_dining,
-                    onTap: () {},
-                  ),
-                  FitnessCard(
-                    title: 'Hydration',
-                    subtitle: '8 glasses today?',
-                    icon: Icons.water_drop,
-                    onTap: () {},
-                  ),
-                  FitnessCard(
-                    title: 'Sleep',
-                    subtitle: '7 hours last night',
-                    icon: Icons.nightlight_round,
-                    onTap: () {},
-                  ),
-                ],
-              ),
-            ),
+                ),
+              ],
+            )
           ],
         ),
       ),
-      floatingActionButton: SpeedDial(
-        animatedIcon: AnimatedIcons.play_pause,
-        backgroundColor: AppColors.primaryBlue,
-        overlayColor: Colors.black,
-        overlayOpacity: 0.4,
-        children: [
-          SpeedDialChild(
-            child: Icon(Icons.directions_run, color: Colors.white),
-            backgroundColor: AppColors.primaryBlue,
-            label: 'Run',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TrackScreen()),
-              );
-            },
+      body: _tabs[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        selectedItemColor: colors.primary,
+        unselectedItemColor: colors.onPrimaryContainer,
+        backgroundColor: colors.surface,
+        type: BottomNavigationBarType.fixed,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              _currentIndex == 0 ? Icons.home : Icons.home_outlined,
+            ),
+            label: 'Home',
           ),
-          SpeedDialChild(
-            child: Icon(Icons.fastfood, color: Colors.white),
-            backgroundColor: AppColors.primaryBlue,
-            label: 'Food',
-            onTap: () {
-              // Handle food tracking
-            },
+          BottomNavigationBarItem(
+            icon: Icon(
+              _currentIndex == 1 ? Icons.analytics : Icons.analytics_outlined,
+            ),
+            label: 'Report',
           ),
-          SpeedDialChild(
-            child: Icon(Icons.hotel, color: Colors.white),
-            backgroundColor: AppColors.primaryBlue,
-            label: 'Stats',
-            onTap: () {
-              // Handle sleep action
-            },
+          BottomNavigationBarItem(
+            icon: Icon(
+              _currentIndex == 2 ? Icons.fastfood : Icons.fastfood_outlined,
+            ),
+            label: 'Diet',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              _currentIndex == 3 ? Icons.settings : Icons.settings_outlined,
+            ),
+            label: 'Settings',
           ),
         ],
       ),

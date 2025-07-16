@@ -1,6 +1,6 @@
 import 'package:fitness_tracker/config/theme.dart';
-import 'package:fitness_tracker/widgets/track/pulsatingCircle.dart';
-import 'package:fitness_tracker/widgets/track/statWidget.dart';
+import 'package:fitness_tracker/screens/widgets/track/pulsatingCircle.dart';
+import 'package:fitness_tracker/screens/widgets/track/statWidget.dart';
 import 'package:flutter/material.dart';
 
 class RunningScreen extends StatelessWidget {
