@@ -1,61 +1,43 @@
-import 'package:fitness_tracker/screens/home.dart';
 import 'package:fitness_tracker/services/db/db_helper.dart';
+import 'package:fitness_tracker/services/models/user.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class _RegisterScreenState extends State<RegisterScreen> {
+  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
+
 
   @override
   void dispose() {
     usernameController.dispose();
+    emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
 
-  Future<void> _signIn() async {
-    final username = usernameController.text.trim();
-    final password = passwordController.text;
+  void initState() {
+    super.initState();
+    _printAllUsers();
+  }
 
-    if (username.isEmpty || password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter username and password')),
-      );
-      return;
-    }
-
-    setState(() => _isLoading = true);
-
-    // Query the DB for user
-    final user = await DatabaseHelper.instance.loginUser(username, password);
-
-    setState(() => _isLoading = false);
-
-    if (user != null) {
-      // Login successful, navigate to home or dashboard
-    Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (context) => HomePage(user: user),
-    ),
-  );
-    } else {
-      // Show error
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Invalid email or password')),
-      );
+    Future<void> _printAllUsers() async {
+    final users = await DatabaseHelper.instance.getAllUsers();
+    print('All registered users:');
+    for (var user in users) {
+      print('Username: ${user.username}, Email: ${user.email}');
     }
   }
 
@@ -75,9 +57,9 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 180),
+                const SizedBox(height: 100),
 
-                // FleetPredict Logo
+                // Logo + Title
                 Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -107,10 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ],
                         ),
-                        style: const TextStyle(
-                          fontSize: 34,
-                          letterSpacing: 1.2,
-                        ),
+                        style:
+                            const TextStyle(fontSize: 34, letterSpacing: 1.2),
                       ),
                     ],
                   ),
@@ -118,9 +98,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 40),
 
-                // Sign In heading
                 Text(
-                  'Sign In',
+                  'Create Account',
                   style: text.headlineSmall?.copyWith(
                     color: colors.primary,
                     fontWeight: FontWeight.bold,
@@ -147,11 +126,31 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 16),
 
+                // Email
+                TextField(
+                  controller: emailController,
+                  style: text.bodyMedium?.copyWith(color: colors.primary),
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    hintText: 'Email',
+                    hintStyle: text.bodySmall
+                        ?.copyWith(color: colors.primary.withOpacity(0.6)),
+                    filled: true,
+                    fillColor: colors.surfaceContainer,
+                    prefixIcon: Icon(Icons.email, color: colors.primary),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+
                 // Password
                 TextField(
                   controller: passwordController,
-                  style: text.bodyMedium?.copyWith(color: colors.primary),
                   obscureText: true,
+                  style: text.bodyMedium?.copyWith(color: colors.primary),
                   decoration: InputDecoration(
                     hintText: 'Password',
                     hintStyle: text.bodySmall
@@ -165,32 +164,57 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
 
-                // Forgot Password
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/forgot-password');
-                    },
-                    child: Text(
-                      'Forgot password?',
-                      style: text.bodySmall?.copyWith(
-                        color: colors.primary.withOpacity(0.9),
-                        decoration: TextDecoration.underline,
-                      ),
+                // Confirm Password
+                TextField(
+                  controller: confirmPasswordController,
+                  obscureText: true,
+                  style: text.bodyMedium?.copyWith(color: colors.primary),
+                  decoration: InputDecoration(
+                    hintText: 'Confirm Password',
+                    hintStyle: text.bodySmall
+                        ?.copyWith(color: colors.primary.withOpacity(0.6)),
+                    filled: true,
+                    fillColor: colors.surfaceContainer,
+                    prefixIcon: Icon(Icons.lock_outline, color: colors.primary),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
 
-                // Sign In button
+                // Register Button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: _isLoading ? null : _signIn,
+                    onPressed: () async {
+                      final username = usernameController.text.trim();
+                      final email = emailController.text.trim();
+                      final password = passwordController.text;
+                      final confirmPassword = confirmPasswordController.text;
+
+                      if (password != confirmPassword) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text("Passwords do not match")),
+                        );
+                        return;
+                      }
+
+                      final user = User(
+                        username: username,
+                        email: email,
+                        password: password,
+                      );
+
+                      await DatabaseHelper.instance.registerUser(user);
+
+                      Navigator.pushReplacementNamed(context, '/login');
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: colors.primary,
                       padding: const EdgeInsets.symmetric(vertical: 14),
@@ -198,50 +222,39 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: _isLoading
-                        ? const CircularProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.white),
-                          )
-                        : Text(
-                            'Sign In',
-                            style: text.labelLarge?.copyWith(
-                              color: colors.onPrimary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                    child: Text(
+                      'Register',
+                      style: text.labelLarge?.copyWith(
+                        color: colors.onPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
 
                 const SizedBox(height: 30),
 
-                // Contact Admin
                 Center(
                   child: GestureDetector(
                     onTap: () {
-                      // Navigator.pushNamed(context, '/register');
+                      Navigator.pushNamed(context, '/login');
                     },
                     child: RichText(
                       text: TextSpan(
                         style: text.bodySmall,
                         children: [
                           TextSpan(
-                            text: "Don't have an account? ",
+                            text: 'Already have an account? ',
                             style:
                                 text.bodySmall?.copyWith(color: colors.primary),
                           ),
                           TextSpan(
-                            text: 'Register',
+                            text: 'Sign In',
                             style: text.bodySmall?.copyWith(
                               color: colors.primary.withOpacity(0.85),
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline,
                             ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                // Perform navigation or logic here
-                                Navigator.pushNamed(context, '/register');
-                              },
                           ),
                         ],
                       ),

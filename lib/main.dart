@@ -1,6 +1,9 @@
 
 import 'package:fitness_tracker/core/theme/theme.dart';
 import 'package:fitness_tracker/core/theme/util.dart';
+import 'package:fitness_tracker/screens/auth/login.dart';
+import 'package:fitness_tracker/screens/auth/register.dart';
+import 'package:fitness_tracker/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_tracker/screens/home.dart';
 
@@ -22,7 +25,13 @@ class MyFitnessTracker extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: theme.light(),
       themeMode: ThemeMode.system,
-      home: HomePage(),
+      home: SplashScreen(),
+       routes: {
+
+        // '/home': (_) => const HomePage(),
+        '/login': (_) => const LoginScreen(),
+        '/register': (_) => const RegisterScreen(),
+      },
     );
   }
 }

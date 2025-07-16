@@ -3,10 +3,12 @@ import 'package:fitness_tracker/screens/home_tabs/home_tab.dart';
 import 'package:fitness_tracker/screens/home_tabs/report_tab.dart';
 import 'package:fitness_tracker/screens/home_tabs/settings_tab.dart';
 import 'package:fitness_tracker/screens/widgets/drawer.dart';
+import 'package:fitness_tracker/services/models/user.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+    final User user;
+  const HomePage({super.key,  required this.user});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -29,7 +31,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       backgroundColor: colors.surface,
-      drawer: const MyAppDrawer(),
+      drawer:  MyAppDrawer(user: widget.user),
       appBar: AppBar(
         backgroundColor: colors.surface,
         elevation: 2,
@@ -40,7 +42,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             // Left: Greeting
             Text(
-              'Good Day, Sam',
+              'Good Day, ${widget.user.username}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Roboto',

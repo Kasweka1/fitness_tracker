@@ -88,18 +88,6 @@ class SettingsTab extends StatelessWidget {
         ),
 
         const SizedBox(height: 24),
-
-        // Logout
-        ListTile(
-          leading: const Icon(Icons.logout, color: Colors.red),
-          title: const Text(
-            'Log Out',
-            style: TextStyle(color: Colors.red),
-          ),
-          onTap: () {
-            // Handle logout logic
-          },
-        ),
       ],
     );
   }
