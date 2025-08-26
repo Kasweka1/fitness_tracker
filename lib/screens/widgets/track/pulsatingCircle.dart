@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
+
 class PulsatingCircle extends StatefulWidget {
   final Widget child;
 
-  const PulsatingCircle({Key? key, required this.child}) : super(key: key);
+  const PulsatingCircle({super.key, required this.child});
 
   @override
   _PulsatingCircleState createState() => _PulsatingCircleState();

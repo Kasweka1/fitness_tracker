@@ -190,9 +190,9 @@ class _SummaryTile extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          backgroundColor: colors.surfaceVariant,
-          child: Icon(icon, color: colors.primary, size: 18),
+          backgroundColor: colors.surfaceContainerHighest,
           radius: 20,
+          child: Icon(icon, color: colors.primary, size: 18),
         ),
         const SizedBox(width: 8),
         Column(

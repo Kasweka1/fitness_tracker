@@ -9,13 +9,13 @@ class ExerciseCard extends StatelessWidget {
   final VoidCallback onSeeAll;
 
   const ExerciseCard({
-    Key? key,
+    super.key,
     required this.exerciseName,
     required this.duration,
     required this.calories,
     required this.svgAsset,
     required this.onSeeAll,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

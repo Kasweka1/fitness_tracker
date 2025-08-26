@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
+
 class StatWidget extends StatelessWidget {
   final String label;
   final String value;
 
-  const StatWidget({Key? key, required this.label, required this.value})
-      : super(key: key);
+  const StatWidget({super.key, required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {

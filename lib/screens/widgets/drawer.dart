@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class MyAppDrawer extends StatelessWidget {
   final User user;
-  const MyAppDrawer({Key? key,  required this.user}) : super(key: key);
+  const MyAppDrawer({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +22,8 @@ class MyAppDrawer extends StatelessWidget {
                 color: colors.primary,
               ),
             ),
-            accountName:  Text(user.username),
-            accountEmail:  Text(user.email),
+            accountName: Text(user.username),
+            accountEmail: Text(user.email),
           ),
 
           // Profile
@@ -61,7 +61,7 @@ class MyAppDrawer extends StatelessWidget {
             leading: const Icon(Icons.logout, color: Colors.red),
             title: const Text('Logout', style: TextStyle(color: Colors.red)),
             onTap: () {
-               Navigator.pushNamed(context, '/login');
+              Navigator.pushNamed(context, '/login');
             },
           ),
           const SizedBox(height: 16),

@@ -9,13 +9,13 @@ class FoodCard extends StatelessWidget {
   final VoidCallback onStart;
 
   const FoodCard({
-    Key? key,
+    super.key,
     required this.foodName,
     required this.calories,
     required this.serving,
     required this.svgAsset,
     required this.onStart,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

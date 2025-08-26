@@ -45,12 +45,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (user != null) {
       // Login successful, navigate to home or dashboard
-    Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (context) => HomePage(user: user),
-    ),
-  );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(user: user),
+        ),
+      );
     } else {
       // Show error
       ScaffoldMessenger.of(context).showSnackBar(
