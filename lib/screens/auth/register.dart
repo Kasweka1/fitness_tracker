@@ -1,5 +1,6 @@
 import 'package:fitness_tracker/services/db/db_helper.dart';
 import 'package:fitness_tracker/services/models/user.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
@@ -25,7 +26,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
-  @override
   void initState() {
     super.initState();
     _printAllUsers();

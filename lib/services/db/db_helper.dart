@@ -26,9 +26,10 @@ class DatabaseHelper {
 
   Future _createDB(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE users(
+      CREATE TABLE users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL,
+        email TEXT NOT NULL,
         password TEXT NOT NULL
       )
     ''');
@@ -56,10 +57,9 @@ class DatabaseHelper {
   }
 
   // ---------- USER METHODS ----------
-  Future<void> registerUser(User user) async {
+  Future<int> registerUser(User user) async {
     final db = await instance.database;
-    await db.insert('users', user.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+    return await db.insert('users', user.toMap());
   }
 
   Future<User?> loginUser(String username, String password) async {
