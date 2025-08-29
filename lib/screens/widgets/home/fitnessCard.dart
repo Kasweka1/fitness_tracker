@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class FitnessCard extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -9,13 +8,13 @@ class FitnessCard extends StatelessWidget {
   final Color backgroundColor;
 
   const FitnessCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
     required this.icon,
     required this.onTap,
     this.backgroundColor = Colors.white, // default
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

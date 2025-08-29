@@ -17,8 +17,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-
-
   @override
   void dispose() {
     usernameController.dispose();
@@ -33,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _printAllUsers();
   }
 
-    Future<void> _printAllUsers() async {
+  Future<void> _printAllUsers() async {
     final users = await DatabaseHelper.instance.getAllUsers();
     print('All registered users:');
     for (var user in users) {
