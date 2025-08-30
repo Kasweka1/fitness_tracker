@@ -17,18 +17,33 @@ class DatabaseHelper {
     return _database!;
   }
 
+  Future<void> resetDatabase() async {
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, 'fitness_tracker.db');
+
+    // Delete the existing database file
+    await deleteDatabase(path);
+
+    // Reset the cached instance
+    _database = null;
+
+    print('Database wiped successfully.');
+  }
+
   Future<Database> _initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(path, version: 2, onCreate: _createDB, onUpgrade: _upgradeDB);
+    return await openDatabase(path,
+        version: 2, onCreate: _createDB, onUpgrade: _upgradeDB);
   }
 
   Future _upgradeDB(Database db, int oldVersion, int newVersion) async {
-  if (oldVersion < 2) {
-    await db.execute("ALTER TABLE users ADD COLUMN email TEXT NOT NULL DEFAULT ''");
+    if (oldVersion < 2) {
+      await db.execute(
+          "ALTER TABLE users ADD COLUMN email TEXT NOT NULL DEFAULT ''");
+    }
   }
-}
 
   Future _createDB(Database db, int version) async {
     await db.execute('''
@@ -55,8 +70,10 @@ class DatabaseHelper {
     await db.execute('''
       CREATE TABLE workouts(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
         type TEXT,
-        calories REAL,
+        duration INTEGER, 
+        calories_burnt REAL,
         date TEXT
       )
     ''');

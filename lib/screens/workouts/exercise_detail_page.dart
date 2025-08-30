@@ -1,16 +1,15 @@
 import 'dart:async';
+import 'package:fitness_tracker/services/db/db_helper.dart';
+import 'package:fitness_tracker/services/models/workout.dart';
 import 'package:flutter/material.dart';
-
 class ExerciseDetailPage extends StatefulWidget {
   final String exerciseName;
-  final String duration; // initial suggested duration
-  final String calories; // initial calories estimate
+  final String category;
 
   const ExerciseDetailPage({
     super.key,
     required this.exerciseName,
-    required this.duration,
-    required this.calories,
+    required this.category,
   });
 
   @override
@@ -24,22 +23,22 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
 
   double caloriesBurned = 0;
 
-  /// 🔹 Different calorie burn rates (calories per minute)
+  /// Calories burned per minute based on exercise type
   double getCaloriesPerMinute(String exerciseName) {
     switch (exerciseName.toLowerCase()) {
-      case "lifting":
-        return 6.0; // Lifting burns ~6 cal/min
+      case "running":
+        return 12.0;
       case "cycling":
-        return 10.0; // Cycling burns ~10 cal/min
+        return 10.0;
+      case "push ups":
+        return 8.0;
       default:
-        return 8.0; // Default if not listed
+        return 6.0; // default
     }
   }
 
   void startSession() {
-    setState(() {
-      isRunning = true;
-    });
+    setState(() => isRunning = true);
 
     final burnRate = getCaloriesPerMinute(widget.exerciseName);
 
@@ -53,9 +52,23 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
 
   void stopSession() {
     _timer?.cancel();
-    setState(() {
-      isRunning = false;
-    });
+    setState(() => isRunning = false);
+
+    // Save workout to DB
+    final workout = Workout(
+      name: widget.exerciseName,
+      type: widget.category,
+      duration: elapsedSeconds,
+      caloriesBurned: caloriesBurned,
+      calories: caloriesBurned,
+      date: DateTime.now().toIso8601String(),
+      id: null,
+    );
+
+    DatabaseHelper.instance.insertWorkout(workout);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Workout saved successfully!')),
+    );
   }
 
   @override
@@ -75,29 +88,24 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
     final burnRate = getCaloriesPerMinute(widget.exerciseName);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.exerciseName),
-      ),
+      appBar: AppBar(title: Text(widget.exerciseName)),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Session: ${widget.exerciseName}",
-                style:
-                    const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                widget.exerciseName,
+                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
 
               /// Timer
               Text(
                 formatTime(elapsedSeconds),
-                style:
-                    const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
               ),
-
               const SizedBox(height: 20),
 
               /// Calories burned
@@ -105,18 +113,16 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
                 "Calories burned: ${caloriesBurned.toStringAsFixed(1)} cal",
                 style: const TextStyle(fontSize: 20),
               ),
-
               const SizedBox(height: 10),
 
-              /// Show burn rate
+              /// Burn rate
               Text(
                 "Burn rate: $burnRate cal/min",
                 style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
-
               const SizedBox(height: 30),
 
-              /// Start / Stop button
+              /// Start / Stop
               ElevatedButton.icon(
                 onPressed: isRunning ? stopSession : startSession,
                 icon: Icon(isRunning ? Icons.stop : Icons.play_arrow),

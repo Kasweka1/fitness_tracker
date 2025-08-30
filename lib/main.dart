@@ -3,9 +3,15 @@ import 'package:fitness_tracker/core/theme/util.dart';
 import 'package:fitness_tracker/screens/auth/login.dart';
 import 'package:fitness_tracker/screens/auth/register.dart';
 import 'package:fitness_tracker/screens/splash/splash_screen.dart';
+import 'package:fitness_tracker/services/db/db_helper.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Wipe DB on app start (for development/testing)
+  // await DatabaseHelper.instance.resetDatabase();
+
   runApp(const MyFitnessTracker());
 }
 

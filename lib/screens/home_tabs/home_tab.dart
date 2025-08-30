@@ -3,9 +3,9 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 // Import new pages
 import 'package:fitness_tracker/screens/daily_activity_page.dart';
-import 'package:fitness_tracker/screens/workouts_page.dart';
+import 'package:fitness_tracker/screens/workouts/workouts_page.dart';
 import 'package:fitness_tracker/screens/hydration_page.dart';
-import 'package:fitness_tracker/screens/exercise_detail_page.dart';
+import 'package:fitness_tracker/screens/workouts/exercise_detail_page.dart';
 import 'package:fitness_tracker/screens/food_detail_page.dart';
 
 import '../widgets/home/exercice_card.dart';
@@ -88,9 +88,9 @@ class HomeTab extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const ExerciseDetailPage(
-                      exerciseName: 'Lifting',
-                      duration: '15 mins',
-                      calories: '120 cal',
+                      exerciseName: 'Lifting', category: '',
+                      // duration: '15 mins',
+                      // calories: '120 cal',
                     ),
                   ),
                 );
@@ -107,8 +107,9 @@ class HomeTab extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => const ExerciseDetailPage(
                       exerciseName: 'Cycling',
-                      duration: '10 mins',
-                      calories: '90 cal',
+                      category: ''
+                      // duration: '10 mins',
+                      // calories: '90 cal', 
                     ),
                   ),
                 );
