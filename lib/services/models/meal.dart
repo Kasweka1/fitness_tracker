@@ -17,12 +17,6 @@ class Meal {
     required this.protein,
     required this.fat,
     required this.date,
-    required List ingredients,
-    required Map nutrition,
-    required List steps,
-    required double fats,
-    required double proteins,
-    required String name,
   });
 
   Map<String, dynamic> toMap() {
@@ -48,16 +42,6 @@ class Meal {
       protein: map['protein'],
       fat: map['fat'],
       date: map['date'],
-      ingredients: [],
-      nutrition: {},
-      steps: [],
-      fats: map['fats'],
-      proteins: map['proteins'],
-      name: '',
     );
   }
-
-  get ingredients => null;
-
-  get steps => null;
 }

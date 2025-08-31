@@ -1,0 +1,29 @@
+stages:
+  - test
+  - build
+
+variables:
+  FLUTTER_CHANNEL: stable
+
+before_script:
+  - apt-get update -y
+  - apt-get install -y curl git unzip xz-utils
+  - curl -O https://storage.googleapis.com/flutter_infra_release/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_${FLUTTER_CHANNEL}.tar.xz
+  - tar xf flutter_linux_${FLUTTER_CHANNEL}.tar.xz
+  - export PATH="$PATH:$PWD/flutter/bin"
+  - flutter doctor
+
+test:
+  stage: test
+  script:
+    - flutter pub get
+    - flutter test
+
+build:
+  stage: build
+  script:
+    - flutter pub get
+    - flutter build apk --release
+  artifacts:
+    paths:
+      - build/app/outputs/flutter-apk/app-release.apk
