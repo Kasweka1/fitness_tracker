@@ -26,7 +26,20 @@ class HomeTab extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
+
             /// ---- Fitness Cards ----
+            Text(
+              'Daily Checklist',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Roboto',
+                fontSize: 20,
+                color: colors.primary,
+              ),
+            ),
+
+            const SizedBox(height: 10),
             SizedBox(
               height: 160,
               child: ListView(
@@ -78,6 +91,18 @@ class HomeTab extends StatelessWidget {
             const SizedBox(height: 16),
 
             /// ---- Exercise Cards ----
+            Text(
+              'Exercise',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Roboto',
+                fontSize: 20,
+                color: colors.primary,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
             ExerciseCard(
               exerciseName: 'Lifting',
               duration: '15 mins',
@@ -119,6 +144,18 @@ class HomeTab extends StatelessWidget {
             const SizedBox(height: 16),
 
             /// ---- Food Cards ----
+            Text(
+              'Food',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Roboto',
+                fontSize: 20,
+                color: colors.primary,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
             SizedBox(
               height: 120,
               child: ListView(
