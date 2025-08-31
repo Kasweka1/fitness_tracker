@@ -37,9 +37,14 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     setState(() => _isLoading = true);
+    await DatabaseHelper.instance.printAllTables();
+    final db = await DatabaseHelper.instance.database;
+    final res = await db.rawQuery("PRAGMA table_info(users)");
+    print(res);
 
     // Query the DB for user
     final user = await DatabaseHelper.instance.loginUser(username, password);
+    print(user);
 
     setState(() => _isLoading = false);
 

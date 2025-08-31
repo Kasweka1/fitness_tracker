@@ -21,8 +21,14 @@ class DatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(path, version: 2, onCreate: _createDB, onUpgrade: _upgradeDB);
   }
+
+  Future _upgradeDB(Database db, int oldVersion, int newVersion) async {
+  if (oldVersion < 2) {
+    await db.execute("ALTER TABLE users ADD COLUMN email TEXT NOT NULL DEFAULT ''");
+  }
+}
 
   Future _createDB(Database db, int version) async {
     await db.execute('''
@@ -56,6 +62,18 @@ class DatabaseHelper {
     ''');
   }
 
+  //
+  Future<void> printAllTables() async {
+    final db = await instance.database;
+    final result =
+        await db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'");
+    print('---- ALL TABLES ----');
+    for (final row in result) {
+      print(row['name']);
+    }
+    print('--------------------');
+  }
+
   // ---------- USER METHODS ----------
   Future<int> registerUser(User user) async {
     final db = await instance.database;
@@ -69,7 +87,8 @@ class DatabaseHelper {
       where: 'username = ? AND password = ?',
       whereArgs: [username, password],
     );
-
+    print('QUERY: username=$username, password=$password');
+    print('RESULT: $maps');
     if (maps.isNotEmpty) {
       return User(
         id: maps.first['id'] as int,
@@ -84,6 +103,12 @@ class DatabaseHelper {
   Future<List<User>> getAllUsers() async {
     final db = await instance.database;
     final result = await db.query('users');
+
+    print('---- ALL USERS IN DB ----');
+    for (final row in result) {
+      print(row);
+    }
+    print('--------------------------');
 
     return result.map((map) {
       return User(
