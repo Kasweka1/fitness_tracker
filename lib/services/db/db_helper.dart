@@ -37,11 +37,12 @@ class DatabaseHelper {
     await db.execute('''
       CREATE TABLE meals(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
+        title TEXT,
+        description TEXT,
         calories REAL,
-        proteins REAL,
+        protein REAL,
         carbs REAL,
-        fats REAL,
+        fat REAL,
         date TEXT
       )
     ''');
@@ -102,6 +103,28 @@ class DatabaseHelper {
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
+  Future<List<Meal>> getMeals() async {
+    final db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.query(
+      'meals',
+      orderBy: "date DESC", // show most recent first
+    );
+
+    return List.generate(maps.length, (i) {
+      return Meal(
+        id: maps[i]['id'],
+        title: maps[i]['title'],
+        description: maps[i]['description'],
+        calories: maps[i]['calories']?.toDouble() ?? 0.0,
+        protein: maps[i]['protein']?.toDouble() ?? 0.0,
+        carbs: maps[i]['carbs']?.toDouble() ?? 0.0,
+        fat: maps[i]['fat']?.toDouble() ?? 0.0,
+        date: maps[i]['date'],
+      );
+    });
+  }
+
   Future<List<Meal>> fetchMealsByDate(String date) async {
     final db = await instance.database;
     final result =
@@ -110,19 +133,13 @@ class DatabaseHelper {
     return result.map((map) {
       return Meal(
         id: map['id'] as int,
-        name: map['name'] as String,
+        title: map['title'] as String,
+        description: map['description'] as String,
         calories: map['calories'] as double,
-        proteins: map['proteins'] as double,
+        protein: map['protein'] as double,
         carbs: map['carbs'] as double,
-        fats: map['fats'] as double,
+        fat: map['fat'] as double,
         date: map['date'] as String,
-        description: '',
-        title: '',
-        protein: 0.0,
-        ingredients: [],
-        nutrition: {},
-        steps: [],
-        fat: 0.0,
       );
     }).toList();
   }
