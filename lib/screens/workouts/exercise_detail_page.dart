@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:fitness_tracker/services/db/db_helper.dart';
 import 'package:fitness_tracker/services/models/workout.dart';
 import 'package:flutter/material.dart';
+
 class ExerciseDetailPage extends StatefulWidget {
   final String exerciseName;
   final String category;
@@ -60,7 +61,6 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
       type: widget.category,
       duration: elapsedSeconds,
       caloriesBurned: caloriesBurned,
-      calories: caloriesBurned,
       date: DateTime.now().toIso8601String(),
       id: null,
     );
@@ -97,14 +97,16 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
             children: [
               Text(
                 widget.exerciseName,
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
 
               /// Timer
               Text(
                 formatTime(elapsedSeconds),
-                style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
 
