@@ -35,8 +35,8 @@ class MyAppDrawer extends StatelessWidget {
 
           // Plans
           ListTile(
-            leading: const Icon(Icons.calendar_today),
-            title: const Text('My Plans'),
+            leading: const Icon(Icons.track_changes),
+            title: const Text('Tracker'),
             onTap: () {},
           ),
 
