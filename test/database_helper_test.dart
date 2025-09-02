@@ -49,8 +49,10 @@ class DatabaseHelper {
         await db.execute('''
           CREATE TABLE workouts(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name Text,
             type TEXT,
-            calories REAL,
+            duration INTEGER,
+            caloriesBurned REAL,
             date TEXT
           )
         ''');

@@ -138,4 +138,3 @@ class _SettingsSectionTitle extends StatelessWidget {
     );
   }
 }
-

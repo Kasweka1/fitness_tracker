@@ -11,7 +11,6 @@ void main() async {
 
   // Wipe DB on app start (for development/testing)
   // await DatabaseHelper.instance.resetDatabase();
-
   runApp(const MyFitnessTracker());
 }
 

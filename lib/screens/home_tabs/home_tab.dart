@@ -1,13 +1,15 @@
+import 'package:fitness_tracker/screens/food_detail_page.dart';
+import 'package:fitness_tracker/screens/meal_detail/MealDetailPage.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
-// Import new pages
+// Screens
 import 'package:fitness_tracker/screens/daily_activity_page.dart';
 import 'package:fitness_tracker/screens/workouts/workouts_page.dart';
 import 'package:fitness_tracker/screens/hydration_page.dart';
 import 'package:fitness_tracker/screens/workouts/exercise_detail_page.dart';
-import 'package:fitness_tracker/screens/food_detail_page.dart';
 
+// Widgets
 import '../widgets/home/exercice_card.dart';
 import '../widgets/home/fitnessCard.dart';
 import '../widgets/home/food_card.dart';
@@ -88,7 +90,7 @@ class HomeTab extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 16),
+          const SizedBox(height: 16),
 
             /// ---- Exercise Cards ----
             Text(
@@ -141,7 +143,7 @@ class HomeTab extends StatelessWidget {
               },
             ),
 
-            const SizedBox(height: 16),
+          const SizedBox(height: 16),
 
             /// ---- Food Cards ----
             Text(

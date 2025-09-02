@@ -202,7 +202,6 @@ class DatabaseHelper {
       return Workout(
         id: map['id'] as int,
         type: map['type'] as String,
-        calories: map['calories'] as double,
         date: map['date'] as String,
         name: map['name'] as String,
         duration: map['duration'] as int,
