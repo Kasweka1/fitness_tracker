@@ -2,6 +2,15 @@
 
 A Flutter-based fitness tracking application to help users monitor their workouts, nutrition, hydration, and sleep.
 
+## Documentation
+- Overview: doc/overview.md
+- Architecture: doc/architecture.md
+- Setup: doc/setup.md
+- Project Structure: doc/structure.md
+- Contributing: doc/contributing.md
+- Changelog: doc/CHANGELOG.md
+- FAQ: doc/faq.md
+
 ## Getting Started
 
 Follow these steps to set up and run the project after cloning it.
@@ -25,9 +34,10 @@ Ensure you have the following installed on your system:
 2. **Install Dependencies**: Run the following command to fetch all the required dependencies:
 
 ```bash
-  flutter pub get
+flutter pub get
 ```
-3. **Run Prpject**
-  ```bash
-  flutter run
-   ```
+
+3. **Run Project**
+```bash
+flutter run
+```
