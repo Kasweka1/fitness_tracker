@@ -31,13 +31,86 @@ Ensure you have the following installed on your system:
    cd fitness_tracker
    ```
 
-2. **Install Dependencies**: Run the following command to fetch all the required dependencies:
+2. **Install Dependencies**: 
+   Run the following command to fetch all the required dependencies:
+   ```bash
+   flutter pub get
+   ```
 
-```bash
-flutter pub get
+3. **Run the Project**:
+   ```bash
+   flutter run
+   ```
+
+## Project Structure
+
+```
+fitness_tracker/
+├── android/                    # Native Android code
+├── ios/                        # Native iOS code
+├── lib/                        # Main Flutter source files
+│   ├── main.dart              # App entry point
+│   ├── screens/               # App screens (UI pages)
+│   ├── widgets/               # Reusable UI components
+│   ├── models/                # Data models
+│   └── services/              # Business logic & APIs
+├── assets/                     # Images, icons, and fonts
+├── linux/                     # Linux desktop support
+├── macos/                     # macOS desktop support
+├── windows/                   # Windows desktop support
+├── web/                       # Web support
+├── test/                      # Unit and widget tests
+├── pubspec.yaml              # Dependencies and assets configuration
+├── analysis_options.yaml     # Linter rules
+├── .gitignore
+└── README.md
 ```
 
-3. **Run Project**
-```bash
-flutter run
-```
+## Features (MVP)
+
+- **User Registration and Authentication**
+  - Secure login/signup system
+  - Profile management and privacy settings
+
+- **Workout Logging**
+  - Running, cycling, gym workouts, and more
+  - Exercise duration and intensity tracking
+  - Custom workout creation and templates
+
+- **Nutrition Logging**
+  - Food diary with comprehensive tracking
+  - Meal summaries and nutritional analysis
+  - Calorie counting and macro tracking
+
+- **Health Monitoring**
+  - Hydration tracking with daily goals
+  - Sleep pattern monitoring and analysis
+  - Weight and body metrics tracking
+
+- **Goal Setting & Progress**
+  - Custom fitness objectives
+  - Progress tracking and analytics
+  - Achievement system and milestones
+
+
+
+## Contributors
+
+This project is developed and maintained by:
+
+1. **MBERENGA SAMANTHA**
+2. **MBEWE KANGWA**
+3. **MBIZA OCEAN**
+4. **MBUMWAE NATHAN**
+5. **MILIMBO CHITUNDU**
+6. **MOONGA JACOB**
+7. **MSIMUKO PRINCE**
+8. **MTONGA ROY**
+9. **MUBANGA BRIGHTON**
+10. **MUKOKO KASWEKA**
+
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
