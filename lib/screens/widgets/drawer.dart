@@ -34,11 +34,13 @@ class MyAppDrawer extends StatelessWidget {
           ),
 
           // Plans
-          ListTile(
+            ListTile(
             leading: const Icon(Icons.track_changes),
             title: const Text('Tracker'),
-            onTap: () {},
-          ),
+            onTap: () {
+              Navigator.pushNamed(context, '/tracker');
+            },
+            ),
 
           // Achievements
           ListTile(
