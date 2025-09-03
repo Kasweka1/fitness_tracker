@@ -1,91 +1,94 @@
 # Fitness Tracker
 
-A Flutter-based fitness tracking application to help users monitor their workouts, nutrition, hydration, and sleep.
+
+Fitness Tracker is a cross-platform Flutter application that helps users monitor their workouts, nutrition, hydration, and daily activity. It features user authentication, daily logging, analytics, and a modern UI.
 
 ## Getting Started
 
 Follow these steps to set up and run the project after cloning it.
 
-### Prerequisites
 
-Ensure you have the following installed on your system:
-- [Flutter SDK](https://docs.flutter.dev/get-started/install) (version 3.6.0 or later)
+## Prerequisites
+
+Make sure you have:
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) (>=3.6.0)
 - [Dart SDK](https://dart.dev/get-dart)
 - An IDE such as [Visual Studio Code](https://code.visualstudio.com/) or [Android Studio](https://developer.android.com/studio)
-- A connected device or emulator for testing
+- A device or emulator for testing
 
-### Installation
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/Kasweka1/fitness_tracker.git
-   cd fitness_tracker
-   ```
+## Installation
 
-2. **Install Dependencies**: Run the following command to fetch all the required dependencies:
-
-```bash
+1. **Clone the repository:**
+  ```bash
+  git clone https://github.com/Kasweka1/fitness_tracker.git
+  cd fitness_tracker
+  ```
+2. **Install dependencies:**
+  ```bash
   flutter pub get
-```
-3. **Run Project**
+  ```
+3. **Run the app:**
   ```bash
   flutter run
-   ```
-4. **Project Folder Structure**
+  ```
+
+## Folder Structure
+
+```
 fitness_tracker/
-├── android/            # Native Android code
-├── ios/                # Native iOS code
-├── lib/                # Main Flutter source files
-│   ├── main.dart       # App entry point
-│   ├── screens/        # App screens (UI pages)
-│   ├── widgets/        # Reusable UI components
-│   ├── models/         # Data models
-│   └── services/       # Business logic & APIs
-├── assets/             # Images, icons, and fonts
-├── linux/              # Linux desktop support
-├── macos/              # macOS desktop support
-├── windows/            # Windows desktop support
-├── web/                # Web support
-├── test/               # Unit and widget tests
-├── pubspec.yaml        # Dependencies and assets configuration
+├── android/         # Android native code
+├── ios/             # iOS native code
+├── lib/             # Main Flutter source
+│   ├── main.dart    # App entry point
+│   ├── core/        # Theme and core utilities
+│   ├── screens/     # UI screens (auth, home, tabs, detail, widgets, etc.)
+│   ├── services/    # Database and models
+│   └── utils/       # Utility functions
+├── assets/          # Images, icons, fonts
+├── linux/           # Linux desktop support
+├── macos/           # macOS desktop support
+├── windows/         # Windows desktop support
+├── web/             # Web support
+├── test/            # Widget tests
+├── pubspec.yaml     # Dependencies and assets
 ├── analysis_options.yaml # Linter rules
-├── .gitignore
 └── README.md
+```
 
-5. **Features (MVP)**
-User registration and authentication
+## Features
 
-Workout logging (running, cycling, etc.)
+- User registration and authentication
+- Workout logging (weight lifting, cycling, running, etc.)
+- Nutrition logging (meals, calories, macros)
+- Hydration tracking
+- Daily activity summary (calories, macros, burned)
+- Weekly/monthly reports and analytics
+- Goal setting and progress tracking
+- Notifications and reminders
+- Profile and privacy management
+- Modern Material 3 UI with custom themes
 
-Nutrition logging (food diary and summaries)
+## Technologies Used
 
-Hydration and sleep tracking
+- Flutter 3.6+
+- Dart
+- sqflite (local database)
+- fl_chart (charts)
+- line_awesome_flutter (icons)
+- Custom Material 3 theme
 
-Goal creation and progress reports
+## Contributors
 
-Notifications and reminders
-
-Privacy and profile management
-
-6. **Contributors**
 This project is developed and maintained by:
 
-MBERENGA SAMANTHA
-
-MBEWE KANGWA
-
-MBIZA OCEAN
-
-MBUMWAE NATHAN
-
-MILIMBO CHITUNDU
-
-MOONGA JACOB
-
-MSIMUKO PRINCE
-
-MTONGA ROY
-
-MUBANGA BRIGHTON
-
-MUKOKO KASWEKA
+- MBERENGA SAMANTHA
+- MBEWE KANGWA
+- MBIZA OCEAN
+- MBUMWAE NATHAN
+- MILIMBO CHITUNDU
+- MOONGA JACOB
+- MSIMUKO PRINCE
+- MTONGA ROY
+- MUBANGA BRIGHTON
+- MUKOKO KASWEKA
